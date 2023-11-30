@@ -27,8 +27,11 @@ class Slidable extends StatefulWidget {
     this.direction = Axis.horizontal,
     this.dragStartBehavior = DragStartBehavior.down,
     this.useTextDirection = true,
+    this.closer,
     required this.child,
   }) : super(key: key);
+
+  final ChangeNotifier? closer;
 
   /// Whether this slidable is interactive.
   ///
@@ -136,6 +139,7 @@ class _SlidableState extends State<Slidable>
     super.initState();
     controller = SlidableController(this)
       ..actionPaneType.addListener(handleActionPanelTypeChanged);
+    widget.closer?.addListener(() => controller.close());
   }
 
   @override
