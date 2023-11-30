@@ -17,9 +17,13 @@ class BehindMotion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paneData = ActionPane.of(context)!;
-    return Flex(
-      direction: paneData.direction,
-      children: paneData.children,
+    return SingleChildScrollView(
+      scrollDirection: paneData.direction,
+      clipBehavior: Clip.none,
+      child: Flex(
+        direction: paneData.direction,
+        children: paneData.children,
+      ),
     );
   }
 }
