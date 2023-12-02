@@ -81,7 +81,7 @@ class DismissiblePane extends StatefulWidget {
 }
 
 class _DismissiblePaneState extends State<DismissiblePane> {
-  SlidableController? controller;
+  late final SlidableController controller;
 
   @override
   void initState() {
@@ -111,18 +111,18 @@ class _DismissiblePaneState extends State<DismissiblePane> {
       return true;
     }());
     controller = Slidable.of(context);
-    controller!.dismissGesture.addListener(handleDismissGestureChanged);
+    controller.dismissGesture.addListener(handleDismissGestureChanged);
   }
 
   @override
   void dispose() {
-    controller!.dismissGesture.removeListener(handleDismissGestureChanged);
+    controller.dismissGesture.removeListener(handleDismissGestureChanged);
     super.dispose();
   }
 
   Future<void> handleDismissGestureChanged() async {
-    final endGesture = controller!.dismissGesture.value!.endGesture;
-    final position = controller!.animation.value;
+    final endGesture = controller.dismissGesture.value!.endGesture;
+    final position = controller.animation.value;
 
     if (endGesture is OpeningGesture ||
         endGesture is StillGesture && position >= widget.dismissThreshold) {
@@ -131,17 +131,17 @@ class _DismissiblePaneState extends State<DismissiblePane> {
         canDismiss = await widget.confirmDismiss!();
       }
       if (canDismiss) {
-        controller!.dismiss(
+        controller.dismiss(
           ResizeRequest(widget.resizeDuration, widget.onDismissed),
           duration: widget.dismissalDuration,
         );
       } else if (widget.closeOnCancel) {
-        controller!.close();
+        controller.close();
       }
       return;
     }
 
-    controller!.openCurrentActionPane();
+    controller.openCurrentActionPane();
   }
 
   @override

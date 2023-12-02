@@ -23,8 +23,10 @@ class ActionPaneConfiguration extends InheritedWidget {
         isStartActionPane != oldWidget.isStartActionPane;
   }
 
-  static ActionPaneConfiguration? of(BuildContext context) {
-    return context
+  static ActionPaneConfiguration of(BuildContext context) {
+    final result = context
         .dependOnInheritedWidgetOfExactType<ActionPaneConfiguration>();
+    assert(result != null);
+    return result!;
   }
 }

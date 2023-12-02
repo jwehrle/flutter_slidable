@@ -117,11 +117,13 @@ class Slidable extends StatefulWidget {
   /// SlidableController controller = Slidable.of(context);
   /// ```
   /// {@end-tool}
-  static SlidableController? of(BuildContext context) {
+  static SlidableController of(BuildContext context) {
     final scope = context
         .getElementForInheritedWidgetOfExactType<_SlidableControllerScope>()
         ?.widget as _SlidableControllerScope?;
-    return scope?.controller;
+        assert(scope != null);
+        assert(scope!.controller != null);
+    return scope!.controller!;
   }
 }
 

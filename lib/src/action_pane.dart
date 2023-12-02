@@ -101,15 +101,17 @@ class ActionPane extends StatefulWidget {
 
   /// The action pane's data from the closest instance of this class that
   /// encloses the given context.
-  static ActionPaneData? of(BuildContext context) {
-    return context
+  static ActionPaneData of(BuildContext context) {
+    final result = context
         .dependOnInheritedWidgetOfExactType<_ActionPaneScope>()
         ?.actionPaneData;
+    assert(result != null);
+    return result!;
   }
 }
 
 class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
-  SlidableController? controller;
+  late SlidableController controller;
   late double openThreshold;
   late double closeThreshold;
   bool showMotion = true;
@@ -121,13 +123,13 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
   void initState() {
     super.initState();
     controller = Slidable.of(context);
-    controller!.endGesture.addListener(handleEndGestureChanged);
+    controller.endGesture.addListener(handleEndGestureChanged);
 
     if (widget.dismissible != null) {
-      controller!.animation.addListener(handleRatioChanged);
+      controller.animation.addListener(handleRatioChanged);
     }
     updateThresholds();
-    controller!.actionPaneConfigurator = this;
+    controller.actionPaneConfigurator = this;
   }
 
   void updateThresholds() {
@@ -139,23 +141,23 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
   void didUpdateWidget(covariant ActionPane oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.dismissible != null) {
-      controller!.animation.removeListener(handleRatioChanged);
+      controller.animation.removeListener(handleRatioChanged);
     }
     if (widget.dismissible == null) {
       // In the case where the child was different than the motion, we get
       // it back.
       showMotion = true;
     } else {
-      controller!.animation.addListener(handleRatioChanged);
+      controller.animation.addListener(handleRatioChanged);
     }
     updateThresholds();
   }
 
   @override
   void dispose() {
-    controller!.endGesture.removeListener(handleEndGestureChanged);
-    controller!.animation.removeListener(handleRatioChanged);
-    controller!.actionPaneConfigurator = null;
+    controller.endGesture.removeListener(handleEndGestureChanged);
+    controller.animation.removeListener(handleRatioChanged);
+    controller.actionPaneConfigurator = null;
     super.dispose();
   }
 
@@ -174,18 +176,18 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
 
   @override
   void handleEndGestureChanged() {
-    final gesture = controller!.endGesture.value;
-    final position = controller!.animation.value;
+    final gesture = controller.endGesture.value;
+    final position = controller.animation.value;
 
     if (widget.dismissible != null &&
         widget.dragDismissible &&
         position > widget.extentRatio) {
-      if (controller!.isDismissibleReady) {
-        controller!.dismissGesture.value = DismissGesture(gesture);
+      if (controller.isDismissibleReady) {
+        controller.dismissGesture.value = DismissGesture(gesture);
       } else {
         // If the dismissible is not ready, the animation will stop.
         // So we prefere to open the action pane instead.
-        controller!.openCurrentActionPane();
+        controller.openCurrentActionPane();
       }
       return;
     }
@@ -194,17 +196,17 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
         gesture is StillGesture &&
             ((gesture.opening && position >= openThreshold) ||
                 gesture.closing && position > closeThreshold)) {
-      controller!.openCurrentActionPane();
+      controller.openCurrentActionPane();
       return;
     }
 
     // Otherwise we close the the Slidable.
-    controller!.close();
+    controller.close();
   }
 
   void handleRatioChanged() {
-    final show = controller!.ratio.abs() <= widget.extentRatio &&
-        !controller!.isDismissibleReady;
+    final show = controller.ratio.abs() <= widget.extentRatio &&
+        !controller.isDismissibleReady;
     if (show != showMotion) {
       setState(() {
         showMotion = show;
@@ -214,7 +216,7 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
 
   @override
   Widget build(BuildContext context) {
-    final config = ActionPaneConfiguration.of(context)!;
+    final config = ActionPaneConfiguration.of(context);
 
     Widget? child;
 

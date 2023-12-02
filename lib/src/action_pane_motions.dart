@@ -16,7 +16,7 @@ class BehindMotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paneData = ActionPane.of(context)!;
+    final paneData = ActionPane.of(context);
     return SingleChildScrollView(
       scrollDirection: paneData.direction,
       clipBehavior: Clip.none,
@@ -41,12 +41,12 @@ class StretchMotion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paneData = ActionPane.of(context);
-    final controller = Slidable.of(context)!;
+    final controller = Slidable.of(context);
 
     return AnimatedBuilder(
       animation: controller.animation,
       builder: (BuildContext context, Widget? child) {
-        final value = controller.animation.value / paneData!.extentRatio;
+        final value = controller.animation.value / paneData.extentRatio;
 
         return FractionallySizedBox(
           alignment: paneData.alignment,
@@ -72,8 +72,8 @@ class ScrollMotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paneData = ActionPane.of(context)!;
-    final controller = Slidable.of(context)!;
+    final paneData = ActionPane.of(context);
+    final controller = Slidable.of(context);
 
     // Each child starts just outside of the Slidable.
     final startOffset = Offset(paneData.alignment.x, paneData.alignment.y);
@@ -100,8 +100,8 @@ class DrawerMotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paneData = ActionPane.of(context)!;
-    final controller = Slidable.of(context)!;
+    final paneData = ActionPane.of(context);
+    final controller = Slidable.of(context);
     final animation = controller.animation
         .drive(CurveTween(curve: Interval(0, paneData.extentRatio)));
 

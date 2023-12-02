@@ -13,8 +13,8 @@ class InversedDrawerMotion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final paneData = ActionPane.of(context)!;
-    final controller = Slidable.of(context)!;
+    final paneData = ActionPane.of(context);
+    final controller = Slidable.of(context);
     final animation = controller.animation
         .drive(CurveTween(curve: Interval(paneData.extentRatio, 1)));
 
