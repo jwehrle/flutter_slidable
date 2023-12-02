@@ -130,16 +130,24 @@ class _SlidableState extends State<Slidable>
   late final SlidableController controller;
   late Animation<Offset> moveAnimation;
   late bool keepPanesOrder;
+  bool _isDisposed = false;
 
   @override
   bool get wantKeepAlive => !widget.closeOnScroll;
+
+  void _closerListener() {
+    if (!_isDisposed) {
+      return;
+    }
+    controller.close();
+  }
 
   @override
   void initState() {
     super.initState();
     controller = SlidableController(this)
       ..actionPaneType.addListener(handleActionPanelTypeChanged);
-    widget.closer?.addListener(() => controller.close());
+    widget.closer?.addListener(_closerListener);
   }
 
   @override
@@ -155,12 +163,16 @@ class _SlidableState extends State<Slidable>
     super.didUpdateWidget(oldWidget);
     updateIsLeftToRight();
     updateController();
+    widget.closer?.removeListener(_closerListener);
+    widget.closer?.addListener(_closerListener);
   }
 
   @override
   void dispose() {
     controller.actionPaneType.removeListener(handleActionPanelTypeChanged);
+    widget.closer?.removeListener(_closerListener);
     controller.dispose();
+    _isDisposed = true;
     super.dispose();
   }
 
