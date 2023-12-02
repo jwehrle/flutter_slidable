@@ -115,7 +115,7 @@ class CustomSlidableAction extends StatelessWidget {
   void _handleTap(BuildContext context) {
     onPressed?.call(context);
     if (autoClose) {
-      Slidable.of(context)?.close();
+      Slidable.of(context).close();
     }
   }
 }

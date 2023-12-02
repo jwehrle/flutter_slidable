@@ -138,7 +138,7 @@ class _SlidableState extends State<Slidable>
   bool get wantKeepAlive => !widget.closeOnScroll;
 
   void _closerListener() {
-    if (!_isDisposed) {
+    if (_isDisposed) {
       return;
     }
     controller.close();
