@@ -30,7 +30,7 @@ class ActionPaneData {
   /// Whether the current action pane is the start one.
   final bool fromStart;
 
-  // Whether to make children same size in alignment direciton
+  /// Whether to make children same size in alignment direciton
   final bool equalize;
 
   /// The actions for this pane.

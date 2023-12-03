@@ -261,7 +261,7 @@ class SlidableController {
     Curve curve = _defaultCurve,
   }) async {
     return openTo(
-      actionPaneConfigurator!.extentRatio,
+      actionPaneConfigurator?.extentRatio ?? 0.5,
       duration: duration,
       curve: curve,
     );
