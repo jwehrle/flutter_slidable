@@ -11,6 +11,7 @@ class ActionPaneData {
     required this.alignment,
     required this.direction,
     required this.fromStart,
+    required this.equalize,
     required this.children,
   });
 
@@ -28,6 +29,9 @@ class ActionPaneData {
 
   /// Whether the current action pane is the start one.
   final bool fromStart;
+
+  // Whether to make children same size in alignment direciton
+  final bool equalize;
 
   /// The actions for this pane.
   final List<Widget> children;
@@ -238,6 +242,7 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
         direction: config.direction,
         fromStart: config.isStartActionPane,
         extentRatio: widget.extentRatio,
+        equalize: config.equalize,
         children: widget.children,
       ),
       child: child!,

@@ -28,10 +28,15 @@ class Slidable extends StatefulWidget {
     this.dragStartBehavior = DragStartBehavior.down,
     this.useTextDirection = true,
     this.closer,
-    required this.child,
+    this.equalize = true,
+    required this.child, 
   }) : super(key: key);
 
+  /// Closes action pane
   final ChangeNotifier? closer;
+
+  /// Whether to make actions the same size in direction axis
+  final bool equalize;
 
   /// Whether this slidable is interactive.
   ///
@@ -288,6 +293,7 @@ class _SlidableState extends State<Slidable>
             child: ActionPaneConfiguration(
               alignment: actionPaneAlignment,
               direction: widget.direction,
+              equalize: widget.equalize,
               isStartActionPane:
                   controller.actionPaneType.value == ActionPaneType.start,
               child: _SlidableControllerScope(

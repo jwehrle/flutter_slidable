@@ -9,12 +9,14 @@ class ActionPaneConfiguration extends InheritedWidget {
     required this.alignment,
     required this.direction,
     required this.isStartActionPane,
+    required this.equalize,
     required Widget child,
   }) : super(key: key, child: child);
 
   final Alignment alignment;
   final Axis direction;
   final bool isStartActionPane;
+  final bool equalize;
 
   @override
   bool updateShouldNotify(ActionPaneConfiguration oldWidget) {
