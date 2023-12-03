@@ -17,20 +17,36 @@ class BehindMotion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final paneData = ActionPane.of(context);
-    Widget flex = Flex(
-      direction: paneData.direction,
-      children: paneData.children,
-    );
+    Widget flex;
     if (paneData.equalize) {
       if (paneData.direction == Axis.horizontal) {
         flex = IntrinsicWidth(
-          child: flex,
+          child: Flex(
+            direction: paneData.direction,
+            children: paneData.children
+                .map((e) => Expanded(
+                      child: e,
+                    ))
+                .toList(),
+          ),
         );
       } else {
         flex = IntrinsicHeight(
-          child: flex,
+          child: Flex(
+            direction: paneData.direction,
+            children: paneData.children
+                .map((e) => Expanded(
+                      child: e,
+                    ))
+                .toList(),
+          ),
         );
       }
+    } else {
+      flex = Flex(
+        direction: paneData.direction,
+        children: paneData.children,
+      );
     }
     return SingleChildScrollView(
       scrollDirection: paneData.direction,
