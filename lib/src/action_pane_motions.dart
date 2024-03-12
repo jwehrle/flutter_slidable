@@ -12,7 +12,10 @@ class BehindMotion extends StatelessWidget {
   /// {@animation 664 200 https://raw.githubusercontent.com/letsar/flutter_slidable/assets/behind_motion.mp4}
   const BehindMotion({
     Key? key,
+    this.background,
   }) : super(key: key);
+
+  final Color? background;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +54,12 @@ class BehindMotion extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: paneData.direction,
       clipBehavior: Clip.none,
-      child: flex,
+      child: background != null
+          ? Container(
+              color: background,
+              child: flex,
+            )
+          : flex,
     );
   }
 }
