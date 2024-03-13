@@ -56,6 +56,7 @@ class ActionPane extends StatefulWidget {
     this.dragDismissible = true,
     this.openThreshold,
     this.closeThreshold,
+    this.decoration,
     required this.children,
   })  : assert(extentRatio > 0 && extentRatio <= 1),
         assert(
@@ -99,6 +100,8 @@ class ActionPane extends StatefulWidget {
 
   /// The actions for this pane.
   final List<Widget> children;
+
+  final Decoration? decoration;
 
   @override
   _ActionPaneState createState() => _ActionPaneState();
@@ -230,7 +233,12 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
         alignment: config.alignment,
         widthFactor: config.direction == Axis.horizontal ? factor : null,
         heightFactor: config.direction == Axis.horizontal ? null : factor,
-        child: widget.motion,
+        child: widget.decoration != null
+            ? DecoratedBox(
+                decoration: widget.decoration!,
+                child: widget.motion,
+              )
+            : widget.motion,
       );
     } else {
       child = widget.dismissible;

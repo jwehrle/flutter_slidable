@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/src/auto_close_behavior.dart';
-import 'package:flutter_slidable/src/notifications_old.dart';
 
 import 'action_pane_configuration.dart';
 import 'controller.dart';
@@ -185,12 +185,12 @@ class _SlidableState extends State<Slidable>
 
   void updateController() {
     controller
-      ..enableStartActionPane = startActionPane != null
-      ..startActionPaneExtentRatio = startActionPane?.extentRatio ?? 0;
+      ..enableStartActionPane = widget.startActionPane != null
+      ..startActionPaneExtentRatio = widget.startActionPane?.extentRatio ?? 0;
 
     controller
-      ..enableEndActionPane = endActionPane != null
-      ..endActionPaneExtentRatio = endActionPane?.extentRatio ?? 0;
+      ..enableEndActionPane = widget.endActionPane != null
+      ..endActionPaneExtentRatio = widget.endActionPane?.extentRatio ?? 0;
   }
 
   void updateIsLeftToRight() {
@@ -227,16 +227,16 @@ class _SlidableState extends State<Slidable>
   Widget? get actionPane {
     switch (controller.actionPaneType.value) {
       case ActionPaneType.start:
-        return startActionPane;
+        return widget.startActionPane;
       case ActionPaneType.end:
-        return endActionPane;
+        return widget.endActionPane;
       default:
         return null;
     }
   }
 
-  ActionPane? get startActionPane => widget.startActionPane;
-  ActionPane? get endActionPane => widget.endActionPane;
+  // ActionPane? get startActionPane => widget.startActionPane;
+  // ActionPane? get endActionPane => widget.endActionPane;
 
   Alignment get actionPaneAlignment {
     final sign = controller.direction.value.toDouble();
@@ -281,8 +281,8 @@ class _SlidableState extends State<Slidable>
       controller: controller,
       direction: widget.direction,
       dragStartBehavior: widget.dragStartBehavior,
-      child: SlidableNotificationSender(
-        tag: widget.groupTag,
+      child: SlidableAutoCloseNotificationSender(
+        groupTag: widget.groupTag,
         controller: controller,
         child: SlidableScrollingBehavior(
           controller: controller,
