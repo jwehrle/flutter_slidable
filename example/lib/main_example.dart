@@ -67,18 +67,24 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Slidable(
               closer: closer,
               startActionPane: const ActionPane(
-                // motion: BehindMotion(),
-                decoration: BoxDecoration(color: Colors.amber),
-                children: actions,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(color: Colors.amber),
+                  child: Row(children: actions),
+                ),
               ),
               endActionPane: const ActionPane(
-                // motion: BehindMotion(),
-                decoration: BoxDecoration(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
-                  Colors.amber,
-                  Colors.blueGrey,
-                ])),
-                children: actions,
+                      Colors.amber,
+                      Colors.blueGrey,
+                    ]),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: actions,
+                  ),
+                ),
               ),
               child: const ListTile(
                 title: Text("Let's not be ridiculously pretentious."),

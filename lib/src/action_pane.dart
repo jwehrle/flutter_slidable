@@ -1,4 +1,9 @@
-part of 'slidable.dart';
+
+
+import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_slidable/src/action_pane_configuration.dart';
+import 'package:flutter_slidable/src/controller.dart';
 
 const _defaultExtentRatio = 0.5;
 
@@ -13,9 +18,10 @@ class ActionPane extends StatefulWidget {
     Key? key,
     this.extentRatio = _defaultExtentRatio,
     this.dragDismissible = true,
-    this.decoration,
+    // this.decoration,
     this.preferredExtent,
-    required this.children,
+    // required this.children,
+    required this.child,
   })  : assert(extentRatio > 0 && extentRatio <= 1),
         super(key: key);
 
@@ -31,10 +37,12 @@ class ActionPane extends StatefulWidget {
   final bool dragDismissible;
 
   /// The actions for this pane.
-  final List<Widget> children;
+  // final List<Widget> children;
+
+  final Widget child;
 
   /// Optional background decoration of ActionPane
-  final Decoration? decoration;
+  // final Decoration? decoration;
 
   /// Optional fixed extent of slide. Not yet implemented.
   final double? preferredExtent;
@@ -104,22 +112,17 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
   @override
   Widget build(BuildContext context) {
     final config = ActionPaneConfiguration.of(context);
-    Widget child;
-    child = BaseActionPane(
-      direction: config.direction,
-      fromStart: config.isStartActionPane,
-      equalize: config.equalize,
-      children: widget.children,
-    );
-    child = widget.decoration != null
-        ? DecoratedBox(decoration: widget.decoration!, child: child)
-        : child;
     final factor = extentRatio;
     return FractionallySizedBox(
       alignment: config.alignment,
       widthFactor: config.direction == Axis.horizontal ? factor : null,
       heightFactor: config.direction == Axis.horizontal ? null : factor,
-      child: child,
+      child: Align(
+        alignment: config.isStartActionPane
+            ? Alignment.centerLeft
+            : Alignment.centerRight,
+        child: widget.child,
+      ),
     );
   }
 }

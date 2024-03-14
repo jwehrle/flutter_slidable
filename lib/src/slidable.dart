@@ -1,16 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_slidable/src/base_action_pane.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:flutter_slidable/src/action_pane_configuration.dart';
 import 'package:flutter_slidable/src/auto_close_behavior.dart';
-
-import 'action_pane_configuration.dart';
-import 'controller.dart';
-import 'dismissal.dart';
-import 'gesture_detector.dart';
-import 'scrolling_behavior.dart';
-
-part 'action_pane.dart';
+import 'package:flutter_slidable/src/dismissal.dart';
+import 'package:flutter_slidable/src/gesture_detector.dart';
+import 'package:flutter_slidable/src/scrolling_behavior.dart';
 
 /// A widget which can be dragged to reveal contextual actions.
 class Slidable extends StatefulWidget {
