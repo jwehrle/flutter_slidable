@@ -67,12 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: Slidable(
               closer: closer,
               startActionPane: const ActionPane(
-                motion: BehindMotion(),
+                // motion: BehindMotion(),
                 decoration: BoxDecoration(color: Colors.amber),
                 children: actions,
               ),
               endActionPane: const ActionPane(
-                motion: BehindMotion(),
+                // motion: BehindMotion(),
                 decoration: BoxDecoration(
                     gradient: LinearGradient(colors: [
                   Colors.amber,

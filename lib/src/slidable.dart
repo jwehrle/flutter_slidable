@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_slidable/src/base_action_pane.dart';
 import 'package:flutter_slidable/src/auto_close_behavior.dart';
 
 import 'action_pane_configuration.dart';
