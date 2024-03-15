@@ -231,15 +231,6 @@ class _SlidableState extends State<Slidable>
     }
   }
 
-  Alignment get actionPaneAlignment {
-    final sign = controller.direction.value.toDouble();
-    if (widget.direction == Axis.horizontal) {
-      return Alignment(-sign, 0);
-    } else {
-      return Alignment(0, -sign);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     super.build(context); // See AutomaticKeepAliveClientMixin.
