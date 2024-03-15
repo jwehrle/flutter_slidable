@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:flutter_slidable/src/action_pane_configuration.dart';
 import 'package:flutter_slidable/src/auto_close_behavior.dart';
 import 'package:flutter_slidable/src/dismissal.dart';
 import 'package:flutter_slidable/src/gesture_detector.dart';
@@ -26,7 +25,7 @@ class Slidable extends StatefulWidget {
     this.useTextDirection = true,
     this.closer,
     this.equalize = true,
-    required this.child, 
+    required this.child,
   }) : super(key: key);
 
   /// Closes action pane
@@ -123,8 +122,8 @@ class Slidable extends StatefulWidget {
     final scope = context
         .getElementForInheritedWidgetOfExactType<_SlidableControllerScope>()
         ?.widget as _SlidableControllerScope?;
-        assert(scope != null);
-        assert(scope!.controller != null);
+    assert(scope != null);
+    assert(scope!.controller != null);
     return scope!.controller!;
   }
 }
@@ -232,9 +231,6 @@ class _SlidableState extends State<Slidable>
     }
   }
 
-  // ActionPane? get startActionPane => widget.startActionPane;
-  // ActionPane? get endActionPane => widget.endActionPane;
-
   Alignment get actionPaneAlignment {
     final sign = controller.direction.value.toDouble();
     if (widget.direction == Axis.horizontal) {
@@ -278,25 +274,20 @@ class _SlidableState extends State<Slidable>
       controller: controller,
       direction: widget.direction,
       dragStartBehavior: widget.dragStartBehavior,
-      child: SlidableAutoCloseNotificationSender(
+      child: 
+      SlidableAutoCloseNotificationSender(
         groupTag: widget.groupTag,
         controller: controller,
-        child: SlidableScrollingBehavior(
+        child: 
+        SlidableScrollingBehavior(
           controller: controller,
           closeOnScroll: widget.closeOnScroll,
           child: SlidableDismissal(
             axis: flipAxis(widget.direction),
             controller: controller,
-            child: ActionPaneConfiguration(
-              alignment: actionPaneAlignment,
-              direction: widget.direction,
-              equalize: widget.equalize,
-              isStartActionPane:
-                  controller.actionPaneType.value == ActionPaneType.start,
-              child: _SlidableControllerScope(
-                controller: controller,
-                child: content,
-              ),
+            child: _SlidableControllerScope(
+              controller: controller,
+              child: content,
             ),
           ),
         ),
