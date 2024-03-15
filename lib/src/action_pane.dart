@@ -102,8 +102,8 @@ class _ActionPaneState extends State<ActionPane> implements RatioConfigurator {
   }
 
   _Factors get _factors => widget.direction == Axis.horizontal
-      ? _Factors(width: extentRatio, height: null)
-      : _Factors(width: null, height: extentRatio);
+      ? _Factors(width: extentRatio, height: 1.0)
+      : _Factors(width: 1.0, height: extentRatio);
 
   @override
   Widget build(BuildContext context) {
