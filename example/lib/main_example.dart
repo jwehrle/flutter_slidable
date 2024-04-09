@@ -66,11 +66,23 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.all(8.0),
             child: Slidable(
               closer: closer,
-              startActionPane: const ActionPane(
+              startActionPane: ActionPane(
                 direction: Axis.horizontal,
                 child: DecoratedBox(
-                  decoration: BoxDecoration(color: Colors.amber),
-                  child: Row(children: actions),
+                  decoration: const BoxDecoration(color: Colors.amber),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: 20,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Text('$index'),
+                      );
+                    },
+                  ),
                 ),
               ),
               endActionPane: const ActionPane(
@@ -84,12 +96,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: actions,
                   ),
                 ),
               ),
               child: const ListTile(
-                title: Text("Let's not be ridiculously pretentious."),
+                title: Text("Let's not be ridiculously\npretentious... Just moderately smug."),
+                subtitle: Text('Extra words.'),
               ),
             ),
           ),
